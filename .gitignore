@@ -1,0 +1,8 @@
+*.pyc
+*.log
+.idea
+.DS_Store
+media/
+db.sqlite3
+config/settings/local.py
+

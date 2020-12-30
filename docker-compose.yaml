@@ -1,0 +1,57 @@
+version: '3.7'
+
+# Docker Networks
+networks:
+  ${CONTAINER_NAME}-network:
+    name: ${CONTAINER_NAME}-network
+    driver: bridge
+
+# Volumes
+volumes:
+  pgadmin:
+  app:
+  db_data:
+    driver: local
+
+
+services:
+
+  # Postgres Service
+  database:
+    image: postgres:${POSTGRES_VERSION}-alpine
+    container_name: ${CONTAINER_NAME}_postgres
+    restart: always
+    environment:
+        - POSTGRES_HOST_AUTH_METHOD="trust"
+        - POSTGRES_USER=${DB_USER}
+        - POSTGRES_PASSWORD=${DB_PASSWORD}
+        - POSTGRES_DB=${DB_NAME}
+      ports:
+        - ${DB_PORT}:5432
+      networks:
+        - ${CONTAINER_NAME}-network
+      env_file: .env
+
+  redis:
+     image: redis:alpine
+     command: redis-server
+     container_name: ${CONTAINER_NAME}_redis
+     ports:
+       - "6380:6379"
+     env_file: .env
+
+  web:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+      - redis
+    networks:
+      - ${CONTAINER_NAME}-network
+    env_file: .env

@@ -1,0 +1,40 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+django-extensions = "*"
+dj-database-url = "*"
+gunicorn = "*"
+psycopg2 = "*"
+whitenoise = "*"
+pytz = "*"
+six = "*"
+sqlparse = "*"
+typing = "*"
+django-jsonify = "*"
+djangorestframework = "*"
+django-rest-auth = "*"
+django-rest-swagger = "*"
+djangorestframework-jwt = "*"
+markdown = "*"
+django-heroku = "*"
+django-filter = "*"
+django-allauth = "*"
+autopep8 = "*"
+pillow = "*"
+beautifulsoup4 = "*"
+selenium = "*"
+pyvirtualdisplay = "*"
+coreapi = "*"
+faker = "*"
+factory-boy = "*"
+django-configurations = "*"
+
+[dev-packages]
+django-debug-toolbar = "*"
+
+[requires]
+python_version = "3.9"
